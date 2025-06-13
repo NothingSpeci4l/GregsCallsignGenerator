@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="CallsignGenerator:jar">
+    <output-path>$USER_HOME$/Desktop</output-path>
+    <root id="archive" name="CallsignGenerator.jar">
+      <element id="module-output" name="CallsignGenerator" />
+    </root>
+  </artifact>
+</component>
