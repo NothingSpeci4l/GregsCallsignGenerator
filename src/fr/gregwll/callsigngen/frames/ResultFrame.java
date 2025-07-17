@@ -11,6 +11,7 @@ public class ResultFrame {
     public static void display(String result) {
         frame = new JFrame("Callsign Generator - gregwll - Results");
         panel = (JPanel) frame.getContentPane();
+        panel.setBackground(new Color(15,15,15));
 
         frame.setVisible(true);
         frame.setSize(400, 200);

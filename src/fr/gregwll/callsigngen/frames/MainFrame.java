@@ -23,9 +23,10 @@ public class MainFrame {
         frame = new JFrame("Callsign Generator - gregwll");
         panel = (JPanel) frame.getContentPane();
 
-        frame.setSize(700, 700);
+        frame.setSize(350, 465);
         frame.setContentPane(panel);
         panel.setLayout(null);
+        panel.setBackground(new Color(15,15,15));
 
         addElements(panel);
 
@@ -51,41 +52,52 @@ public class MainFrame {
 
     private static void addElements(JPanel panel) {
         JLabel title = new JLabel("Callsign Generator");
-        title.setSize(300, 50);
-        title.setFont(new Font("Arial", Font.BOLD, 25));
-        title.setLocation(245, 20);
+        title.setSize(325, 50);
+        title.setFont(new Font("Arial", Font.BOLD, 35));
+        title.setForeground(Color.WHITE);
+        title.setLocation(frame.getWidth() / 2 - title.getWidth() /2 , 20);
         panel.add(title);
 
         JLabel oacilabel = new JLabel("OACI (Ex: Ryr, Afr)");
-        oacilabel.setSize(200, 20);
-        oacilabel.setLocation(5, 120);
+        oacilabel.setSize(115, 20);
+        oacilabel.setLocation(frame.getWidth() /2 - oacilabel.getWidth() / 2, 120);
+        oacilabel.setForeground(Color.WHITE);
         panel.add(oacilabel);
 
-        JTextField oaciField = new JTextField( 20);
+        JTextField oaciField = new JTextField( 40);
         oaciField.setSize(100,20);
-        oaciField.setLocation(5, 140);
+        oaciField.setLocation(frame.getWidth() /2 - oaciField.getWidth() / 2, 140);
+        oaciField.setBackground(new Color(25,25,25));
+        oaciField.setForeground(Color.WHITE);
         panel.add(oaciField);
 
         JCheckBox typeOneCheck = new JCheckBox("Type 1 (Ex: AFR54KJ)");
         typeOneCheck.setSize(200, 20);
-        typeOneCheck.setLocation(5, 180);
+        typeOneCheck.setForeground(Color.WHITE);
+        typeOneCheck.setBackground(new Color(15,15,15));
+        typeOneCheck.setLocation(frame.getWidth() /2 - typeOneCheck.getWidth() / 2, 180);
         panel.add(typeOneCheck);
 
         JCheckBox typeTwoCheck = new JCheckBox("Type 2 (Ex: ENT3630)");
         typeTwoCheck.setSize(200, 20);
-        typeTwoCheck.setLocation(5, 200);
+        typeTwoCheck.setForeground(Color.WHITE);
+        typeTwoCheck.setBackground(new Color(15,15,15));
+        typeTwoCheck.setLocation(frame.getWidth() /2 - typeTwoCheck.getWidth() / 2, 200);
         panel.add(typeTwoCheck);
 
         JLabel sliderLabel = new JLabel("How many number ?");
-        sliderLabel.setSize(150,20);
-        sliderLabel.setLocation(5, 248);
+        sliderLabel.setSize(130,20);
+        sliderLabel.setForeground(Color.WHITE);
+        sliderLabel.setLocation(frame.getWidth() /2 - sliderLabel.getWidth() / 2, 235);
         panel.add(sliderLabel);
 
         JSlider slider = new JSlider(1, 4);
-        slider.setSize(200, 100);
-        slider.setLocation(5, 250);
+        slider.setSize(200, 50);
+        slider.setLocation(frame.getWidth() /2 - slider.getWidth() / 2, 250);
         slider.setMajorTickSpacing(1);
         slider.setPaintTrack(true);
+        slider.setForeground(Color.WHITE);
+        slider.setBackground(new Color(15,15,15));
         slider.setPaintTicks(true);
         slider.setPaintLabels(true);
         panel.add(slider);
@@ -95,11 +107,6 @@ public class MainFrame {
             public void stateChanged(ChangeEvent e) {
                 if(!typeTwoCheck.isSelected() && !typeOneCheck.isSelected()) {
                     logger.sendDialogError("Please firstly choose a type", frame);
-                } else {
-                    if(typeOneCheck.isSelected() && slider.getValue() > 2) {
-                        slider.setValue(1);
-                        logger.sendDialogError("With type one, you can't set more than 2 numbers !", frame);
-                    }
                 }
             }
         });
@@ -125,7 +132,10 @@ public class MainFrame {
 
         JButton generateButton = new JButton("Generate");
         generateButton.setSize(200, 50);
-        generateButton.setLocation(5, 500);
+        generateButton.setLocation(frame.getWidth() /2 - generateButton.getWidth() / 2, 320);
+        generateButton.setSelected(false);
+        generateButton.setBackground(new Color(25,25,25));
+        generateButton.setForeground(Color.WHITE);
         panel.add(generateButton);
 
         generateButton.addActionListener(new ActionListener() {
@@ -138,7 +148,12 @@ public class MainFrame {
                         if(typeTwoCheck.isSelected()) {
                             ResultFrame.display(oaciField.getText().toUpperCase() + TypeTwoGenerator.generate(slider.getValue()));
                         } else {
-                            ResultFrame.display(oaciField.getText().toUpperCase() + TypeOneGenerator.generate(slider.getValue()));
+                            if(slider.getValue() > 2) {
+                                logger.sendDialogError("With type one, you can't set more than 2 numbers !", frame);
+                            } else {
+                                ResultFrame.display(oaciField.getText().toUpperCase() + TypeOneGenerator.generate(slider.getValue()));
+                            }
+
                         }
 
                     } else {
@@ -151,8 +166,9 @@ public class MainFrame {
         });
 
         JLabel credit = new JLabel("Made by gregwll with ❤");
-        credit.setSize(200, 20);
-        credit.setLocation(5, 650);
+        credit.setSize(frame.getWidth() / 2 - credit.getWidth() / 2, 20);
+        credit.setLocation(5, 400);
+        credit.setForeground(Color.WHITE);
         panel.add(credit);
 
         // JLabel OaciLabel = new JLabel("OACI");
